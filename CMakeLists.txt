@@ -57,12 +57,19 @@ target_include_directories(
 target_compile_definitions(
     lua
     PRIVATE
-        LUA_BUILD_AS_DLL
         LUA_CORE
-        _CRT_SECURE_NO_WARNINGS
-    INTERFACE
-        LUA_BUILD_AS_DLL
 )
+
+if (WIN32)
+    target_compile_definitions(
+        lua
+        PRIVATE
+            LUA_BUILD_AS_DLL
+            _CRT_SECURE_NO_WARNINGS
+        INTERFACE
+            LUA_BUILD_AS_DLL
+    )
+endif()
 
 if (APPLE)
     target_compile_definitions(lua PRIVATE LUA_USE_MACOSX)
